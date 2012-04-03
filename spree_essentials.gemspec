@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # Spree
-  s.add_runtime_dependency('spree_core',  '~> 1.0.0')
+  s.add_runtime_dependency('spree_core',  '>= 1.1.0.beta')
   s.add_runtime_dependency('rdiscount',   '~> 1.6.8')
   
   # Development
