@@ -80,6 +80,86 @@ rails s
 Now login to the admin and click on the 'Content' tab!
 
 
+
+
+------------------------------------------------------------------------------
+Deploying
+------------------------------------------------------------------------------
+
+Follow these steps if you plan host your attachments with a CDN like amazon s3. This is useful when deploying to [heroku](http://heroku.com).
+
+First, add the [aws-sdk](http://rubygems.org/gems/aws-sdk) gem to your `Gemfile`
+
+```ruby
+gem 'aws-sdk', '~> 1.3'
+```
+
+Then run:
+
+```bash
+bundle install
+```
+
+
+Next, create some buckets on s3. I use the [s3cmd](http://s3tools.org/s3cmd).
+
+```bash
+s3cmd mb s3://yoursite.dev --acl-public
+s3cmd mb s3://yoursite.com --acl-public
+```
+
+
+Now create a config file for s3 in `config/s3.yml`
+
+```yml
+# config/s3.yml
+defaults: &defaults
+  s3_protocol: http
+  access_key_id: YOUR_KEY
+  secret_access_key: YOUR_SECRET
+  bucket: yoursite.dev
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  bucket: yoursite.com
+```
+
+
+Lastly, create a [decorator](http://guides.spreecommerce.com/logic_customization.html) for the upload model in `app/models/spree/upload_decorator.rb`.
+
+```ruby
+# app/models/spree/upload_decorator.rb
+Spree::Upload.attachment_definitions[:attachment].merge!(
+  :storage        => 's3',
+  :s3_credentials => Rails.root.join('config', 's3.yml'),
+  :path           => "/uploads/:id/:style/:basename.:extension"
+)
+```
+
+
+If you're using the [CMS](https://github.com/citrus/spree_essential_cms) or [blog](https://github.com/citrus/spree_essential_blog) extensions you can set the config on each model like so:
+
+```ruby
+# app/models/spree/asset_decorator.rb
+[ Spree::Content, Spree::PageImage, Spree::PostImage, Spree::Upload ].each do |cls| 
+  cls.attachment_definitions[:attachment].merge!(
+    :storage        => 's3',
+    :s3_credentials => Rails.root.join('config', 's3.yml'),
+    :path           => "/:class/:id/:style/:basename.:extension"
+  )
+end
+```
+
+
+That's all there is to it!
+
+
 ------------------------------------------------------------------------------
 Notes
 ------------------------------------------------------------------------------
