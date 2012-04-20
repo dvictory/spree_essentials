@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
 
   # Spree
 
-  s.add_runtime_dependency('spree_core',  '~> 1.1.0.rc1')
+  s.add_runtime_dependency('spree_core',  '>= 1.1.0')
 
   s.add_runtime_dependency('rdiscount',   '~> 1.6.8')
   
