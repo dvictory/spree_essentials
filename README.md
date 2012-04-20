@@ -25,9 +25,12 @@ If you don't already have an existing Spree site, [click here](https://gist.gith
 
 Spree Essentials can be installed by itself by adding the following to your Gemfile:
     
-```ruby  
+```ruby
+# Spree 1.1.x
+gem 'spree_essentials', '~> 0.5.0.rc1'
+
 # Spree 1.0.x
-gem 'spree_essentials', '~> 0.4.0.rc3'
+gem 'spree_essentials', '~> 0.4.0'
 
 # Spree 0.70.x
 gem 'spree_essentials', '~> 0.3.3'
@@ -164,7 +167,7 @@ That's all there is to it!
 Notes
 ------------------------------------------------------------------------------
 
-Spree Essentials is under constant development... Development is being done on OSX with Ruby 1.9.3 and usually the latest version of Spree. (currently 1.0.1)
+Spree Essentials is under constant development... Development is being done on OSX with Ruby 1.9.3 and usually the latest version of Spree. (currently 1.1.0.rc1)
 
 Please let me know if you find any bugs or have feature requests you'd like to see. 
 
@@ -212,6 +215,18 @@ To Do
 Change Log
 ------------------------------------------------------------------------------
 
+**0.50.0.rc1 - 2012/4/11**
+
+* Spree 1.1.x compatibility
+
+
+**0.40.0 - 2012/4/11**
+
+* Add Italian translation - (@iloveitaly)
+* Add Russian translation - (@shaggyone)
+* Release v0.40.0
+
+
 **0.40.0.rc3 - 2012/3/7**
 
 * Normalize upload attachment location
@@ -256,7 +271,10 @@ Change Log
 Contributors
 ------------------------------------------------------------------------------
 
-So far it's just me; Spencer Steffen. 
+* Spencer Steffen ([@citrus](https://github.com/citrus))
+* Michael Bianco ([@iloveitaly](https://github.com/iloveitaly))
+* Victor Zagorski ([@shaggyone](https://github.com/shaggyone))
+
 
 If you'd like to help out feel free to fork and send me pull requests!
 
